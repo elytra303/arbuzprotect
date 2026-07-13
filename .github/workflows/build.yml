@@ -15,7 +15,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    # Этот шаг принудительно включает окружение компилятора MSVC (Visual Studio) для консоли
     - name: Initialize MSVC Environment
       uses: ilammy/msvc-dev-cmd@v1
       with:
@@ -26,7 +25,6 @@ jobs:
       with:
         cmake-version: '3.25.x'
 
-    # Используем дефолтный для этого окружения генератор (Ninja), который 100% увидит компилятор
     - name: Configure CMake
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=Release
 
@@ -37,4 +35,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: ArbuzProtect-Launcher
-        path: ${{github.workspace}}/build/Release/
+        path: ${{github.workspace}}/build/ArbuzLauncher.exe
+        if-no-files-found: error # Если файл не найдется, билд упадет с ошибкой, и мы сразу узнаем причину

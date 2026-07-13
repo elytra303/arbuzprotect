@@ -8,6 +8,7 @@
 #include <string>
 #include <thread>
 #include <windows.h>
+#include <windowsx.h>
 #include <urlmon.h>
 
 // Подключаем загрузчик картинок

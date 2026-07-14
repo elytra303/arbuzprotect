@@ -20,14 +20,13 @@ jobs:
         sudo apt-get install -y mingw-w64
 
     - name: Download json.hpp (nlohmann/json)
-      # Скачиваем стабильную версию json.hpp прямо в корень проекта
       run: |
         curl -L -o json.hpp https://github.com/nlohmann/json/releases/latest/download/json.hpp
 
     - name: Compile to EXE
-      # Компилируем проект, теперь json.hpp лежит рядом с main.cpp
+      # Добавлен флаг -lwinhttp в конец команды для успешной линковки сетевых функций Windows
       run: |
-        x86_64-w64-mingw32-g++ -O3 *.cpp -o program.exe -static -static-libgcc -static-libstdc++
+        x86_64-w64-mingw32-g++ -O3 *.cpp -o program.exe -static -static-libgcc -static-libstdc++ -lwinhttp
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
